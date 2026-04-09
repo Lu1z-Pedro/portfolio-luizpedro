@@ -7,149 +7,67 @@
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-
         :root {
-            --term-color: #00d9ff;        
-            --term-color-dim: #0088aa;    
-            --term-color-dark: #003344;   
+            --term-color: #00d9ff;
+            --term-color-dim: #0088aa;
+            --term-color-dark: #003344;
             --term-bg: #050505;
         }
-        
-        
         body {
             background-color: var(--term-bg);
             color: var(--term-color);
             font-family: 'Space Mono', monospace;
-            overflow: hidden; 
-            margin: 0;
-            padding: 0;
+            overflow: hidden;
+            margin: 0; padding: 0;
         }
-
-        h1, h2, h3, h4, .font-display {
-            font-family: 'VT323', monospace;
-        }
-        
+        h1, h2, h3, h4, .font-display { font-family: 'VT323', monospace; }
         .crt-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 50;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 50;
+            background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%), linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06));
             background-size: 100% 4px, 3px 100%;
         }
-
-        .text-glow {
-            text-shadow: 0 0 5px var(--term-color), 0 0 10px var(--term-color);
-        }
-        
-        .box-glow {
-            box-shadow: 0 0 10px var(--term-color), inset 0 0 10px var(--term-color);
-        }
-        
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
+        .text-glow { text-shadow: 0 0 5px var(--term-color), 0 0 10px var(--term-color); }
+        .box-glow { box-shadow: 0 0 10px var(--term-color), inset 0 0 10px var(--term-color); }
+        @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
         .cursor-blink {
             animation: blink 1s step-end infinite;
-            display: inline-block;
-            width: 10px;
-            height: 1.2em;
-            background-color: var(--term-color);
-            vertical-align: bottom;
+            display: inline-block; width: 10px; height: 1.2em;
+            background-color: var(--term-color); vertical-align: bottom;
         }
-
-        @keyframes flicker {
-            0% { opacity: 0.95; }
-            5% { opacity: 0.85; }
-            10% { opacity: 0.95; }
-            15% { opacity: 1; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .animate-marquee {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 25s linear infinite;
-        }
-        
-        .term-border {
-            border: 1px solid var(--term-color);
-            position: relative;
-        }
+        @keyframes marquee { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
+        .animate-marquee { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; }
+        .term-border { border: 1px solid var(--term-color); position: relative; }
         .term-border::before, .term-border::after {
-            content: '+';
-            position: absolute;
-            color: var(--term-color);
-            font-size: 12px;
-            line-height: 1;
+            content: '+'; position: absolute;
+            color: var(--term-color); font-size: 12px; line-height: 1;
         }
         .term-border::before { top: -6px; left: -4px; }
         .term-border::after { bottom: -6px; right: -4px; }
-
-        .ascii-art {
-            font-size: 6px;
-            line-height: 6px;
-            white-space: pre;
-            color: var(--term-color-dim);
-            letter-spacing: 0.1em;
-        }
-        
-        .duotone-img {
-            filter: none !important;
-            mix-blend-mode: screen;
-        }
-        
+        .duotone-img { filter: none !important; mix-blend-mode: screen; }
         .scanlines-local {
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.25) 50%);
             background-size: 100% 4px;
         }
-
         .terminal-scroll {
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow-y: auto; overflow-x: hidden;
             scrollbar-width: thin;
             scrollbar-color: var(--term-color-dim) var(--term-bg);
         }
-        .terminal-scroll::-webkit-scrollbar {
-            width: 8px;
-            background: var(--term-bg);
-            border-left: 1px solid var(--term-color-dark);
-        }
-        .terminal-scroll::-webkit-scrollbar-thumb {
-            background: var(--term-color-dim);
-            border: 1px solid var(--term-bg);
-        }
-        .terminal-scroll::-webkit-scrollbar-thumb:hover {
-            background: var(--term-color);
-        }
+        .terminal-scroll::-webkit-scrollbar { width: 8px; background: var(--term-bg); border-left: 1px solid var(--term-color-dark); }
+        .terminal-scroll::-webkit-scrollbar-thumb { background: var(--term-color-dim); border: 1px solid var(--term-bg); }
+        .terminal-scroll::-webkit-scrollbar-thumb:hover { background: var(--term-color); }
+        .lang-toggle { cursor: pointer; transition: all 0.3s ease; color: var(--term-color-dim); }
+        .lang-toggle:hover { color: var(--term-color); text-shadow: 0 0 5px var(--term-color); }
 
-        .lang-toggle {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .lang-toggle:hover {
-            color: var(--term-color);
-            text-shadow: 0 0 5px var(--term-color);
-        }
-
-        /* Classes customizadas usando as variáveis CSS */
+        .lang-toggle.active { color: var(--term-color); text-shadow: 0 0 5px var(--term-color), 0 0 10px var(--term-color); }
         .border-main { border-color: var(--term-color) !important; }
         .border-dim { border-color: var(--term-color-dim) !important; }
         .border-dark { border-color: var(--term-color-dark) !important; }
         .text-main { color: var(--term-color) !important; }
         .text-dim { color: var(--term-color-dim) !important; }
-        .text-dark { color: var(--term-color-dark) !important; }
         .bg-main { background-color: var(--term-color) !important; }
-        .bg-dim { background-color: var(--term-color-dim) !important; }
-        .bg-dark-alpha { background-color: var(--term-color-dark); opacity: 0.2; }
         .shadow-main { box-shadow: 0 0 20px var(--term-color); }
         .hover\:border-main:hover { border-color: var(--term-color) !important; }
         .hover\:text-main:hover { color: var(--term-color) !important; }
@@ -161,18 +79,17 @@
     <div class="crt-overlay"></div>
 
     <div class="flex flex-col h-full border-2 border-main bg-[#050505] shadow-main relative z-10">
-        
+
         <header class="border-b-2 border-main bg-[#050505] p-3 flex flex-col gap-2 shrink-0">
             <div class="flex justify-between items-start">
                 <div class="flex-1">
                     <h1 class="font-display text-3xl md:text-5xl tracking-wider text-glow uppercase leading-none">
-                        LUIZ_SANTOS.SITE
+                        LUIZ_PEDRO.SITE
                     </h1>
                     <p class="text-xs md:text-sm text-dim font-mono mt-1" data-lang="subtitle">
                         &gt; SOFTWARE ENGINEER // BUBBLE SPECIALIST
                     </p>
                 </div>
-                
                 <div class="flex flex-col items-end gap-2">
                     <div class="flex gap-2 text-xs font-mono">
                         <span class="lang-toggle" data-lang-btn="pt-BR" onclick="setLanguage('pt-BR')">PT-BR</span>
@@ -188,8 +105,7 @@
 
                 <section id="intro" class="mb-12">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <!-- Info Section -->
-                        <div class="term-border p-6" style="background-color: rgba(0, 51, 68, 0.2);">
+                        <div class="term-border p-6" style="background-color: rgba(0,51,68,0.2);">
                             <p class="text-sm md:text-base leading-relaxed mb-4" data-lang="intro">
                                 &gt; Mais de 1 ano e 4 meses em desenvolvimento no-code com Bubble.
                             </p>
@@ -200,32 +116,88 @@
                                 <span>&gt; WEB APPS</span>
                             </div>
                         </div>
-
-                        <!-- Contact Section -->
-                        <div class="term-border p-6" style="background-color: rgba(0, 51, 68, 0.2);">
-                            <h3 class="font-display text-2xl text-main mb-4 text-glow uppercase" data-lang="contact-title">
-                                Contato // Links
-                            </h3>
+                        <div class="term-border p-6" style="background-color: rgba(0,51,68,0.2);">
+                            <h3 class="font-display text-2xl text-main mb-4 text-glow uppercase" data-lang="contact-title">Contato // Links</h3>
                             <div class="flex flex-col gap-3 text-sm font-mono">
                                 <a href="https://api.whatsapp.com/send?phone=5511911730233" target="_blank" class="text-main hover:text-glow transition-all flex items-center gap-2 group">
-                                    <span class="text-dim group-hover:text-main">&gt;&gt;</span>
-                                    <span>WHATSAPP</span>
+                                    <span class="text-dim group-hover:text-main">&gt;&gt;</span><span>WHATSAPP</span>
                                 </a>
                                 <a href="mailto:[put your email here]" class="text-main hover:text-glow transition-all flex items-center gap-2 group">
-                                    <span class="text-dim group-hover:text-main">&gt;&gt;</span>
-                                    <span>EMAIL</span>
+                                    <span class="text-dim group-hover:text-main">&gt;&gt;</span><span>EMAIL</span>
                                 </a>
-                                <a href="https://open.spotify.com/playlist/18HWPPZdbJwhAALX3w2FfR" target="_blank" class="text-main hover:text-glow transition-all flex items-center gap-2 group">
-                                    <span class="text-dim group-hover:text-main">&gt;&gt;</span>
-                                    <span>PLAYLIST</span>
+                                <a href="https://open.spotify.com/playlist/161u9AusFgOiYscizgRRSW" target="_blank" class="text-main hover:text-glow transition-all flex items-center gap-2 group">
+                                    <span class="text-dim group-hover:text-main">&gt;&gt;</span><span>PLAYLIST</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <div class="w-full border-t border-main opacity-20 border-dashed my-8"></div>
+                <div class="w-full border-t border-main opacity-50 border-dashed my-8"></div>
 
+                <!-- CERTIFICATES -->
+                <section id="certificates" class="mb-12">
+                    <div class="mb-8 flex flex-col">
+
+                        <h3 class="font-display text-4xl md:text-5xl tracking-wider text-glow uppercase mb-1" data-lang="certificates-title">
+                            Certificados // Certificates
+                        </h3>
+                        <p class="text-xs text-dim font-mono" data-lang="certificates-subtitle">
+                            &gt; CARREGANDO CERTIFICADOS...
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+
+                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors"
+                             onclick="window.open('https://comunidade.semcodar.com.br/certificacao_validar?codigo=1753838198465x446684728598212300', '_blank');">
+                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0,51,68,0.1);">
+                                <div class="w-full h-48 bg-black mb-4 relative overflow-hidden border border-dim">
+                                    <img src="https://i.ibb.co/VYLNHMM9/Soft-skills-sem-codar-portfolio.jpg" alt="Sem Codar img" class="w-full h-full object-cover duotone-img opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                                    <div class="absolute inset-0 scanlines-local opacity-50 pointer-events-none"></div>
+                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">SEM CODAR</div>
+                                </div>
+                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">SOFT SKILLS PARA DESENVOLVEDORES</h4>
+                                <p class="text-xs text-dim flex-1 mb-4" data-lang="cert-softskills">
+                                    &gt; Certificado de comprovação que eu tenho as habilidades básicas necessárias para iniciar e finalizar um projeto.
+                                </p>
+                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2">
+                                    <span class="text-dim">STACK: BUBBLE.IO</span>
+                                    <span class="hover:text-main">
+
+                                        <a href="https://comunidade.semcodar.com.br/certificacao_validar?codigo=1753838198465x446684728598212300" target="_blank" data-lang="view-cert" onclick="event.stopPropagation();">&gt; VER_CERTIFICADO</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors"
+                             onclick="window.open('http://drive.google.com/file/d/1j5iKmsRabLnZC5it69eoD-u4pHJrfoHn/view', '_blank');">
+                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0,51,68,0.1);">
+                                <div class="w-full h-48 bg-black mb-4 relative overflow-hidden border border-dim">
+                                    <img src="https://i.ibb.co/Y4nf5Xkw/Intesiv-o-IA-img-para-portfolio.png" alt="Intensivão IA img" class="w-full h-full object-cover duotone-img opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                                    <div class="absolute inset-0 scanlines-local opacity-50 pointer-events-none"></div>
+                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">SEM CODAR</div>
+                                </div>
+                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">INTENSIVÃO IA</h4>
+                                <p class="text-xs text-dim flex-1 mb-4" data-lang="cert-ia">
+                                    &gt; Certificado de comprovação que eu tenho as habilidades básicas necessárias para iniciar e finalizar um projeto.
+                                </p>
+                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2">
+                                    <span class="text-dim">STACK: BUBBLE.IO</span>
+                                    <span class="hover:text-main">
+                                        <a href="http://drive.google.com/file/d/1j5iKmsRabLnZC5it69eoD-u4pHJrfoHn/view" target="_blank" data-lang="view-cert" onclick="event.stopPropagation();">&gt; VER_CERTIFICADO</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <div class="w-full border-t border-main opacity-50 border-dashed my-8"></div>
+
+                <!-- PROJECTS -->
                 <section id="projects" class="mb-12">
                     <div class="mb-8 flex flex-col">
                         <h3 class="font-display text-4xl md:text-5xl tracking-wider text-glow uppercase mb-1" data-lang="projects-title">
@@ -235,100 +207,83 @@
                             &gt; CARREGANDO APLICAÇÕES DESENVOLVIDAS...
                         </p>
                     </div>
-
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-                        <!-- MotorHouse -->
-                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors">
-                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0, 51, 68, 0.1);">
+
+                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors"
+                             onclick="window.open('https://desafio-sem-codar-top-car.bubbleapps.io/version-test', '_blank');">
+                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0,51,68,0.1);">
                                 <div class="w-full h-48 bg-black mb-4 relative overflow-hidden border border-dim">
                                     <img src="https://i.ibb.co/hR315V01/Motor-House-Logo.jpg" alt="MotorHouse" class="w-full h-full object-cover duotone-img opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
                                     <div class="absolute inset-0 scanlines-local opacity-50 pointer-events-none"></div>
-                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">
-                                        .MARKETPLACE
-                                    </div>
+                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">.MARKETPLACE</div>
                                 </div>
-                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">
-                                    MotorHouse
-                                </h4>
+                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">MotorHouse</h4>
                                 <p class="text-xs text-dim flex-1 mb-4" data-lang="project-motorhouse">
                                     &gt; Marketplace de vans para converter em motorhome! Desenvolvido totalmente em Bubble com foco especial no UI. Levou aproximadamente 3 semanas de desenvolvimento.
                                 </p>
-                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2 clickable-footer" style="cursor: pointer;" onclick="window.open('https://desafio-sem-codar-top-car.bubbleapps.io/version-test', '_blank');" role="link" tabindex="0" onkeypress="if(event.key === 'Enter'){window.open('https://desafio-sem-codar-top-car.bubbleapps.io/version-test', '_blank');}">
+                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2">
                                     <span class="text-dim">STACK: BUBBLE.IO</span>
                                     <span class="hover:text-main">
-                                        <a href="https://desafio-sem-codar-top-car.bubbleapps.io/version-test" target="_blank" data-lang="view-live">&gt; VER_PROJETO</a>
+                                        <a href="https://desafio-sem-codar-top-car.bubbleapps.io/version-test" target="_blank" data-lang="view-live" onclick="event.stopPropagation();">&gt; VER_PROJETO</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Recicla APP -->
-                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors">
-                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0, 51, 68, 0.1);">
+                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors"
+                             onclick="window.open('https://recicla-plasticos--app.bubbleapps.io/version-test', '_blank');">
+                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0,51,68,0.1);">
                                 <div class="w-full h-48 bg-black mb-4 relative overflow-hidden border border-dim">
-                                    <div class="flex items-center justify-center h-full text-dim text-sm font-mono">
                                     <img src="https://i.ibb.co/LdFND6JQ/Recicla-APP.jpg" alt="Recicla APP" class="w-full h-full object-cover duotone-img opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
-                                    </div>
                                     <div class="absolute inset-0 scanlines-local opacity-50 pointer-events-none"></div>
-                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-main" data-lang="real-project">
-                                        ⭐ PROJETO REAL
-                                    </div>
+                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-main" data-lang="real-project">⭐ PROJETO REAL</div>
                                 </div>
-                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">
-                                    Recicla APP
-                                </h4>
+                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">Recicla APP</h4>
                                 <p class="text-xs text-dim flex-1 mb-4" data-lang="project-recicla">
                                     &gt; Projeto para gerenciamento de depósitos de plástico e reciclagem. Meu primeiro projeto oficial vendido! Focado em mobile, levou ~52 horas totais de desenvolvimento. (Versão modificada para não revelar dados do cliente)
                                 </p>
-
-                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2 clickable-footer" style="cursor: pointer;" onclick="window.open('https://recicla-plasticos--app.bubbleapps.io/version-test', '_blank');" role="link" tabindex="0" onkeypress="if(event.key === 'Enter'){window.open('https://recicla-plasticos--app.bubbleapps.io/version-test', '_blank');}">
+                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2">
                                     <span class="text-dim">STACK: BUBBLE.IO</span>
                                     <span class="hover:text-main">
-                                        <a href="https://recicla-plasticos--app.bubbleapps.io/version-test" target="_blank" data-lang="view-live">&gt; VER_PROJETO</a>
+
+                                        <a href="https://recicla-plasticos--app.bubbleapps.io/version-test" target="_blank" data-lang="view-live" onclick="event.stopPropagation();">&gt; VER_PROJETO</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- No Code Works -->
-                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors">
-                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0, 51, 68, 0.1);">
+                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors"
+                             onclick="window.open('https://semcodar-portal-empregos-20719.bubbleapps.io/version-test', '_blank');">
+                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0,51,68,0.1);">
                                 <div class="w-full h-48 bg-black mb-4 relative overflow-hidden border border-dim">
                                     <img src="https://i.ibb.co/B2Qc2Gfr/No-Code-Works.jpg" alt="No Code Works" class="w-full h-full object-cover duotone-img opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
                                     <div class="absolute inset-0 scanlines-local opacity-50 pointer-events-none"></div>
-                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">
-                                        .JOB_PORTAL
-                                    </div>
+                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">.JOB_PORTAL</div>
                                 </div>
-                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">
-                                    No Code Works
-                                </h4>
+                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">No Code Works</h4>
                                 <p class="text-xs text-dim flex-1 mb-4" data-lang="project-nocodeworks">
                                     &gt; Aplicativo web de vagas de emprego desenvolvido em Bubble. Período de desenvolvimento: aproximadamente 3 semanas.
                                 </p>
-                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2 clickable-footer" style="cursor: pointer;" onclick="window.open('https://semcodar-portal-empregos-20719.bubbleapps.io/version-test', '_blank');" role="link" tabindex="0" onkeypress="if(event.key === 'Enter'){window.open('https://semcodar-portal-empregos-20719.bubbleapps.io/version-test', '_blank');}">
+                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2">
                                     <span class="text-dim">STACK: BUBBLE.IO</span>
                                     <span class="hover:text-main">
-                                        <a href="https://semcodar-portal-empregos-20719.bubbleapps.io/version-test" target="_blank" data-lang="view-live">&gt; VER_PROJETO</a>
+
+                                        <a href="https://semcodar-portal-empregos-20719.bubbleapps.io/version-test" target="_blank" data-lang="view-live" onclick="event.stopPropagation();">&gt; VER_PROJETO</a>
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Equi-Family -->
-                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors">
-                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0, 51, 68, 0.1);">
+                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors"
+                             onclick="window.open('docs', '_blank');">
+                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0,51,68,0.1);">
                                 <div class="w-full h-48 bg-black mb-4 relative overflow-hidden border border-dim">
                                     <img src="https://i.ibb.co/LzrDmy3q/Equi-Family.jpg" alt="Equi-Family" class="w-full h-full object-cover duotone-img opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
                                     <div class="absolute inset-0 scanlines-local opacity-50 pointer-events-none"></div>
-                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">
-                                        .SCHOOL_PROJECT
-                                    </div>
+                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">.SCHOOL_PROJECT</div>
                                 </div>
-                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">
-                                    Equi-Family
-                                </h4>
+                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">Equi-Family</h4>
                                 <p class="text-xs text-dim flex-1 mb-4" data-lang="project-equifamily">
                                     &gt; Desenvolvido como base de um app para atividade escolar. Tempo de desenvolvimento: aproximadamente 17-20 horas.
                                 </p>
@@ -339,26 +294,22 @@
                             </div>
                         </div>
 
-                        <!-- Lista de Mercado -->
-                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors">
-                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0, 51, 68, 0.1);">
+                        <div class="term-border bg-[#050505] p-1 group cursor-pointer hover:border-main transition-colors"
+                             onclick="window.open('https://lista-mercado-20-99548.bubbleapps.io/version-test', '_blank');">
+                            <div class="p-4 h-full flex flex-col relative" style="background-color: rgba(0,51,68,0.1);">
                                 <div class="w-full h-48 bg-black mb-4 relative overflow-hidden border border-dim">
                                     <img src="https://i.ibb.co/R4sGXrVk/Lista-de-Compras.jpg" alt="Lista de Mercado" class="w-full h-full object-cover duotone-img opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
                                     <div class="absolute inset-0 scanlines-local opacity-50 pointer-events-none"></div>
-                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">
-                                        .FIRST_APP
-                                    </div>
+                                    <div class="absolute top-0 right-0 bg-[#050505] border-b border-l border-main px-2 py-1 text-[9px] text-dim">.FIRST_APP</div>
                                 </div>
-                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">
-                                    Lista de Mercado
-                                </h4>
+                                <h4 class="font-display text-2xl text-main mb-2 uppercase group-hover:text-glow">Lista de Mercado</h4>
                                 <p class="text-xs text-dim flex-1 mb-4" data-lang="project-lista">
                                     &gt; Meu primeiro app feito em Bubble! Uma lista de mercado desenvolvida em menos de um dia. Projeto inicial de aprendizado.
                                 </p>
-                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2 clickable-footer" style="cursor: pointer;" onclick="window.open('https://lista-mercado-20-99548.bubbleapps.io/version-test', '_blank');" role="link" tabindex="0" onkeypress="if(event.key === 'Enter'){window.open('https://lista-mercado-20-99548.bubbleapps.io/version-test', '_blank');}">
+                                <div class="flex justify-between items-center text-xs font-mono border-t border-dim pt-2">
                                     <span class="text-dim">STACK: BUBBLE.IO</span>
                                     <span class="hover:text-main">
-                                        <a href="https://lista-mercado-20-99548.bubbleapps.io/version-test" target="_blank" data-lang="view-live">&gt; VER_PROJETO</a>
+                                        <a href="https://lista-mercado-20-99548.bubbleapps.io/version-test" target="_blank" data-lang="view-live" onclick="event.stopPropagation();">&gt; VER_PROJETO</a>
                                     </span>
                                 </div>
                             </div>
@@ -375,9 +326,9 @@
         </main>
 
         <footer class="border-t border-main border-dashed bg-[#050505] relative z-20 shrink-0">
-            <div class="border-b border-main py-1 overflow-hidden text-[10px] tracking-widest text-dim" style="background-color: rgba(0, 51, 68, 0.5);">
+            <div class="border-b border-main py-1 overflow-hidden text-[10px] tracking-widest text-dim" style="background-color: rgba(0,51,68,0.5);">
                 <div class="animate-marquee whitespace-nowrap" data-lang="marquee">
-                    TRANSFORMANDO IDEIAS EM APLICAÇÕES WEB // BUBBLE SPECIALIST // DISPONÍVEL PARA PROJETOS FREELANCE // DISPONÍVEL PARA TRABALHO FIXO // LUIZ_SANTOS.SITE...
+                    TRANSFORMANDO IDEIAS EM APLICAÇÕES WEB // BUBBLE SPECIALIST // DISPONÍVEL PARA PROJETOS FREELANCE // DISPONÍVEL PARA TRABALHO FIXO // LUIZ_PEDRO.SITE...
                 </div>
             </div>
         </footer>
@@ -390,6 +341,12 @@
                 subtitle: '&gt; SOFTWARE ENGINEER // BUBBLE SPECIALIST',
                 intro: '&gt; Mais de 1 ano e 4 meses em desenvolvimento no-code com Bubble.',
                 'contact-title': 'Contato // Links',
+
+                'certificates-title': 'Certificados',
+                'certificates-subtitle': '&gt; CARREGANDO CERTIFICADOS...',
+                'cert-softskills': '&gt; Certificado de comprovação que eu tenho as habilidades básicas necessárias para iniciar e finalizar um projeto.',
+                'cert-ia': '&gt; Certificado de comprovação que eu tenho as habilidades básicas necessárias para iniciar e finalizar um projeto.',
+                'view-cert': '&gt; VER_CERTIFICADO',
                 'projects-title': 'Projetos // Portfolio',
                 'projects-subtitle': '&gt; CARREGANDO APLICAÇÕES DESENVOLVIDAS...',
                 'project-recicla': '&gt; Projeto para gerenciamento de depósitos de plástico e reciclagem. Meu primeiro projeto oficial vendido! Focado em mobile, levou ~52 horas totais de desenvolvimento. (Versão modificada para não revelar dados do cliente)',
@@ -400,12 +357,17 @@
                 'end-directory': '=== FIM DO DIRETÓRIO ===',
                 'view-live': '&gt; VER_PROJETO',
                 'real-project': '⭐ PROJETO REAL',
-                marquee: 'TRANSFORMANDO IDEIAS EM APLICATIVOS // BUBBLE SPECIALIST // DISPONÍVEL PARA PROJETOS FREELANCE // DISPONÍVEL PARA TRABALHO FIXO // LUIZ_SANTOS.SITE // ESSE TERMINAL ERA PRA SER VERDE MAS AQUI É CORINTHIANS // NÃO SEI MAIS O QUE COLOCAR AQUI...'
+                marquee: 'TRANSFORMANDO IDEIAS EM APLICATIVOS // BUBBLE SPECIALIST // DISPONÍVEL PARA PROJETOS FREELANCE // DISPONÍVEL PARA TRABALHO FIXO // LUIZ_PEDRO.SITE // ESSE TERMINAL ERA PRA SER VERDE MAS AQUI É CORINTHIANS // NÃO SEI MAIS O QUE COLOCAR AQUI...'
             },
             'en-US': {
                 subtitle: '&gt; SOFTWARE ENGINEER // BUBBLE SPECIALIST',
                 intro: '&gt; Over 1 year and 4 months in no-code development with Bubble.',
                 'contact-title': 'Contact // Links',
+                'certificates-title': 'Certificates',
+                'certificates-subtitle': '&gt; LOADING CERTIFICATES...',
+                'cert-softskills': '&gt; Certificate proving I have the basic skills needed to start and finish a project.',
+                'cert-ia': '&gt; Certificate proving I have the basic skills needed to start and finish a project.',
+                'view-cert': '&gt; VIEW_CERTIFICATE',
                 'projects-title': 'Projects // Portfolio',
                 'projects-subtitle': '&gt; LOADING DEVELOPED APPLICATIONS...',
                 'project-recicla': '&gt; Project for managing plastic recycling deposits. My first official sold project! Mobile-focused, took ~52 total development hours. (Modified version to protect client data)',
@@ -416,7 +378,7 @@
                 'end-directory': '=== END OF DIRECTORY ===',
                 'view-live': '&gt; VIEW_PROJECT',
                 'real-project': '⭐ REAL PROJECT',
-                marquee: 'TRANSFORMING IDEAS INTO APPs // BUBBLE SPECIALIST // AVAILABLE FOR FREELANCE PROJECTS // AVAILABLE FOR A FULL-TIME WORK // LUIZ_SANTOS.SITE // THIS TERMINAL SHOULD HAVE BEEN GREEN BUT AQUI É CORINTHIANS // I DONT KNOW WHAT ELSE TO PUT HERE... '
+                marquee: 'TRANSFORMING IDEAS INTO APPs // BUBBLE SPECIALIST // AVAILABLE FOR FREELANCE PROJECTS // AVAILABLE FOR FULL-TIME WORK // LUIZ_PEDRO.SITE // THIS TERMINAL SHOULD HAVE BEEN GREEN BUT AQUI É CORINTHIANS // I DONT KNOW WHAT ELSE TO PUT HERE...'
             }
         };
 
@@ -426,27 +388,21 @@
             currentLang = lang;
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
-                if (translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
             });
 
-            // Update language toggle visual state
+
             document.querySelectorAll('[data-lang-btn]').forEach(btn => {
                 if (btn.getAttribute('data-lang-btn') === lang) {
-                    btn.classList.add('text-glow');
-                    btn.style.color = 'var(--term-color)';
+                    btn.classList.add('active');
                 } else {
-                    btn.classList.remove('text-glow');
-                    btn.style.color = '';
+                    btn.classList.remove('active');
                 }
             });
 
-            // Update HTML lang attribute
             document.documentElement.lang = lang;
         }
 
-        // Set initial language
         setLanguage('pt-BR');
     </script>
 
